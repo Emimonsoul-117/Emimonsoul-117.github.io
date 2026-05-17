@@ -65,6 +65,26 @@
             .mobile-menu{display:flex !important;}
             nav{padding:12px 16px;}
             .vest-wrapper{max-width:100%;}
+
+            section {
+                padding: 48px 16px !important;
+            }
+            footer {
+                padding: 32px 16px !important;
+            }
+
+            .hero-content {
+                text-align: center;
+                align-items: center;
+            }
+            .hero-content div {
+                justify-content: center;
+                width: 100%;
+            }
+            .hero-content button, .cta-buttons button {
+                width: 100% !important;
+                justify-content: center;
+            }
         }
         .mobile-menu{display:none;}
 
@@ -119,7 +139,7 @@
     <section style="padding:64px 32px;position:relative;overflow:hidden;">
         <div class="pattern-bg" style="position:absolute;inset:0;opacity:0.25;"></div>
         <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:1;" class="two-col">
-            <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="hero-content" style="display:flex;flex-direction:column;gap:20px;">
                 <div style="display:inline-flex;align-items:center;gap:8px;background:var(--pink-pale);padding:8px 16px;border-radius:9999px;width:fit-content;">
                     <span class="material-symbols-outlined" style="color:var(--pink);font-size:18px;">brush</span>
                     <span style="font-size:12px;font-weight:800;color:var(--pink);letter-spacing:0.06em;">MUÑECA ARTESANAL INTERACTIVA</span>
@@ -405,7 +425,7 @@
             <div style="font-size:56px;margin-bottom:16px;">🎎</div>
             <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text);margin-bottom:16px;">¿Lista para llevar a casa a Mi Nantli?</h2>
             <p style="color:var(--text-soft);font-size:16px;line-height:1.7;margin-bottom:36px;">Una muñeca única que conecta a las niñas con sus raíces y las enseña a amar la cultura náhuatl jugando.</p>
-            <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+            <div class="cta-buttons" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
                 <button class="btn-primary" onclick="location.href='compra.html'" style="padding:18px 48px;font-size:16px;">Adquirir mi Mi Nantli ❤️</button>
                 <button onclick="location.href='index.html'" style="padding:18px 48px;font-size:16px;border-radius:9999px;border:2px solid var(--pink);background:white;color:var(--pink);font-weight:700;cursor:pointer;transition:background 0.3s;" onmouseover="this.style.background='var(--pink-pale)'" onmouseout="this.style.background='white'">← Volver al inicio</button>
             </div>

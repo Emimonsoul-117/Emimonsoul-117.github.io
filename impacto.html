@@ -72,6 +72,26 @@
             .desktop-menu{display:none !important;}
             .mobile-menu{display:flex !important;}
             nav{padding:12px 16px;}
+
+            section {
+                padding: 48px 16px !important;
+            }
+            footer {
+                padding: 32px 16px !important;
+            }
+
+            .hero-content {
+                text-align: center;
+                align-items: center;
+            }
+            .hero-content div {
+                justify-content: center;
+                width: 100%;
+            }
+            .hero-content button, .cta-buttons button {
+                width: 100% !important;
+                justify-content: center;
+            }
         }
         .mobile-menu{display:none;}
         section[id]{scroll-margin-top:90px;}
@@ -442,7 +462,7 @@
             <div style="font-size:56px;margin-bottom:16px;">🌽</div>
             <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text);margin-bottom:16px;">Sé parte del movimiento de preservación cultural</h2>
             <p style="color:var(--text-soft);font-size:16px;line-height:1.75;margin-bottom:36px;">Cada Mi Nantli es un voto a favor del náhuatl, la artesanía mexicana y la identidad de las niñas de México. Juntas podemos garantizar que estas lenguas y tradiciones sigan vivas.</p>
-            <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+            <div class="cta-buttons" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
                 <button class="btn-primary" onclick="location.href='compra.html'" style="padding:18px 44px;font-size:16px;">Adquirir Mi Nantli ❤️</button>
                 <button onclick="location.href='educacion.html'" style="padding:18px 44px;font-size:16px;border-radius:9999px;border:2px solid var(--pink);background:white;color:var(--pink);font-weight:700;cursor:pointer;transition:background 0.3s;" onmouseover="this.style.background='var(--pink-pale)'" onmouseout="this.style.background='white'">Ver impacto educativo →</button>
             </div>
