@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Educación & Desarrollo Cognitivo - Mi Nantli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        :root{
+            --pink:#c2185b;--pink-light:#e91e8c;--pink-pale:#fce4ec;
+            --pink-bg:#fff8f7;--text:#221919;--text-soft:#504444;
+            --border:#d4c2c2;--teal:#00897b;--amber:#f57c00;--blue:#1565c0;--purple:#7b1fa2;
+        }
+        body{background:var(--pink-bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;padding-top:80px;}
+        html{scroll-behavior:smooth;}
+
+        .blob-1{animation:float1 18s infinite ease-in-out;}
+        .blob-2{animation:float2 22s infinite ease-in-out reverse;}
+        @keyframes float1{0%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-50px) scale(1.05)}66%{transform:translate(-20px,20px) scale(0.95)}100%{transform:translate(0,0) scale(1)}}
+        @keyframes float2{0%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,50px) scale(1.1)}66%{transform:translate(20px,-20px) scale(0.9)}100%{transform:translate(0,0) scale(1)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+        @keyframes countUp{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        @keyframes progressFill{from{width:0}to{width:var(--target-w)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+
+        .logo-btn{font-family:'Pacifico',cursive;background:linear-gradient(135deg,#e91e8c 0%,#ff4081 40%,#f06292 70%,#c2185b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 2px 6px rgba(194,24,91,0.35));font-size:1.7rem;cursor:pointer;text-decoration:none;transition:filter 0.3s,transform 0.3s;}
+        .logo-btn:hover{filter:drop-shadow(0 4px 12px rgba(194,24,91,0.55));transform:scale(1.06);}
+
+        nav{position:fixed;top:0;left:0;width:100%;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px 32px;background:rgba(255,248,247,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,194,194,0.4);box-shadow:0 2px 12px rgba(194,24,91,0.06);}
+        .nav-link{font-size:14px;font-weight:600;color:var(--text-soft);text-decoration:none;transition:color 0.3s;}
+        .nav-link:hover,.nav-link.active{color:var(--pink);}
+        .btn-primary{background:linear-gradient(135deg,var(--pink),var(--pink-light));color:white;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;border-radius:9999px;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(194,24,91,0.3);transition:transform 0.3s,box-shadow 0.3s;}
+        .btn-primary:hover{transform:scale(1.06) translateY(-2px);box-shadow:0 14px 28px rgba(194,24,91,0.4);}
+
+        .card{background:white;border-radius:1.5rem;box-shadow:0 4px 24px rgba(194,24,91,0.08);border:1px solid rgba(212,194,194,0.3);transition:transform 0.35s,box-shadow 0.35s;}
+        .card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(194,24,91,0.16);}
+        .stitch{border:2px dashed var(--border);}
+        .pattern-bg{background-image:radial-gradient(#ffdad9 2px,transparent 2px);background-size:20px 20px;}
+
+        /* Cognitive area cards */
+        .cog-card{border-radius:1.5rem;padding:28px;transition:transform 0.35s,box-shadow 0.35s;position:relative;overflow:hidden;}
+        .cog-card:hover{transform:translateY(-6px);}
+        .cog-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;opacity:0.12;}
+
+        /* Progress bars */
+        .prog-bar{height:10px;background:#f0dfde;border-radius:9999px;overflow:hidden;margin-top:10px;}
+        .prog-fill{height:100%;border-radius:9999px;width:0%;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
+
+        /* Age timeline */
+        .age-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;position:relative;}
+        .age-circle{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;border:3px solid white;box-shadow:0 4px 16px rgba(194,24,91,0.25);transition:transform 0.3s;cursor:default;}
+        .age-circle:hover{transform:scale(1.15);}
+        .age-connector{flex:1;height:3px;border-radius:4px;align-self:center;margin-top:-28px;}
+
+        /* Stat counter */
+        .stat-num{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;background:linear-gradient(135deg,var(--pink),var(--pink-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+        /* Feature pill */
+        .pill{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;font-size:13px;font-weight:700;}
+
+        /* Quote block */
+        .quote-block{border-left:4px solid var(--pink);padding-left:20px;font-style:italic;color:var(--text-soft);font-size:16px;line-height:1.75;}
+
+        /* Mobile */
+        @media(max-width:768px){
+            .two-col{grid-template-columns:1fr !important;}
+            .three-col{grid-template-columns:1fr !important;}
+            .four-col{grid-template-columns:1fr 1fr !important;}
+            .desktop-menu{display:none !important;}
+            .mobile-menu{display:flex !important;}
+            nav{padding:12px 16px;}
+            .age-connector{display:none;}
+        }
+        .mobile-menu{display:none;}
+        section[id]{scroll-margin-top:90px;}
+
+        /* Accordion */
+        .acc-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;cursor:pointer;border-radius:12px;transition:background 0.2s;}
+        .acc-header:hover{background:var(--pink-pale);}
+        .acc-body{display:none;padding:0 24px 18px;font-size:15px;color:var(--text-soft);line-height:1.75;}
+        .acc-body.open{display:block;animation:fadeInUp 0.3s ease;}
+        .acc-arrow{transition:transform 0.3s;font-size:20px;color:var(--pink);}
+        .acc-arrow.open{transform:rotate(180deg);}
+    </style>
+</head>
+<body>
+
+<!-- Background Blobs -->
+<div style="position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;">
+    <div class="blob-1" style="position:absolute;top:-10%;left:-10%;width:600px;height:600px;background:#f4c2c2;border-radius:50%;filter:blur(120px);opacity:0.35;"></div>
+    <div class="blob-2" style="position:absolute;top:40%;right:-5%;width:450px;height:450px;background:#ffdad9;border-radius:50%;filter:blur(100px);opacity:0.3;"></div>
+    <div class="blob-1" style="position:absolute;bottom:-10%;left:20%;width:500px;height:500px;background:#e8f5e9;border-radius:50%;filter:blur(120px);opacity:0.3;animation-delay:-8s;"></div>
+</div>
+
+<!-- Nav -->
+<nav>
+    <a href="index.html" class="logo-btn">Mi♥Nantli</a>
+    <div class="desktop-menu" style="display:flex;gap:28px;align-items:center;">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="muneca.html" class="nav-link">La Muñeca</a>
+        <a href="educacion.html" class="nav-link active" style="color:var(--pink);border-bottom:2px solid var(--pink);padding-bottom:2px;">Educación</a>
+        <a href="impacto.html" class="nav-link">Impacto Cultural</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+        <button class="btn-primary" onclick="location.href='compra.html'" style="padding:10px 22px;font-size:13px;">Adquirir ❤️</button>
+        <button class="mobile-menu" id="menuToggle" style="background:none;border:none;cursor:pointer;padding:4px;">
+            <span class="material-symbols-outlined" style="color:var(--pink);font-size:26px;">menu</span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Dropdown -->
+<div id="mobileMenu" style="display:none;position:fixed;top:68px;left:0;width:100%;background:rgba(255,248,247,0.97);backdrop-filter:blur(12px);z-index:49;padding:12px 24px;border-bottom:1px solid #d4c2c2;flex-direction:column;gap:12px;">
+    <a href="index.html" style="font-weight:600;color:#504444;text-decoration:none;padding:8px 0;">Inicio</a>
+    <a href="muneca.html" style="font-weight:600;color:#504444;text-decoration:none;padding:8px 0;">La Muñeca</a>
+    <a href="educacion.html" style="font-weight:600;color:var(--pink);text-decoration:none;padding:8px 0;">Educación</a>
+    <a href="impacto.html" style="font-weight:600;color:#504444;text-decoration:none;padding:8px 0;">Impacto Cultural</a>
+    <button class="btn-primary" onclick="location.href='compra.html'" style="padding:12px;font-size:14px;margin-top:4px;">Adquirir ❤️</button>
+</div>
+
+<main>
+
+    <!-- Hero -->
+    <section style="padding:64px 32px;position:relative;overflow:hidden;">
+        <div class="pattern-bg" style="position:absolute;inset:0;opacity:0.2;"></div>
+        <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:1;" class="two-col">
+            <div style="display:flex;flex-direction:column;gap:20px;">
+                <div style="display:inline-flex;align-items:center;gap:8px;background:var(--pink-pale);padding:8px 18px;border-radius:9999px;width:fit-content;">
+                    <span class="material-symbols-outlined" style="color:var(--pink);font-size:18px;">school</span>
+                    <span style="font-size:12px;font-weight:800;color:var(--pink);letter-spacing:0.06em;">EDUCACIÓN & DESARROLLO COGNITIVO</span>
+                </div>
+                <h1 style="font-size:clamp(2rem,5vw,2.8rem);font-weight:800;color:var(--text);line-height:1.15;">Jugando se aprende: <span style="color:var(--pink);">el impacto cognitivo</span> de Mi Nantli</h1>
+                <p style="font-size:17px;line-height:1.75;color:var(--text-soft);">Mi Nantli fue diseñada para niñas de 4 a 8 años con un propósito claro: estimular áreas clave del desarrollo infantil mientras juegan, aprenden palabras en náhuatl y se conectan con su identidad cultural.</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <span class="pill" style="background:#e8f5e9;color:#2e7d32;">🧠 Desarrollo cognitivo</span>
+                    <span class="pill" style="background:#e3f2fd;color:#1565c0;">🗣️ Lenguaje bilingüe</span>
+                    <span class="pill" style="background:var(--pink-pale);color:var(--pink);">💞 Inteligencia emocional</span>
+                </div>
+                <button class="btn-primary" onclick="document.getElementById('areas').scrollIntoView({behavior:'smooth'})" style="padding:14px 28px;font-size:15px;width:fit-content;">Ver áreas de desarrollo ↓</button>
+            </div>
+            <!-- Stats -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div class="card" style="padding:28px;text-align:center;">
+                    <div class="stat-num" id="stat1">4-8</div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-soft);margin-top:4px;">Años de edad objetivo</div>
+                    <p style="font-size:12px;color:var(--text-soft);margin-top:8px;line-height:1.5;">Etapa crítica para el desarrollo del lenguaje y la identidad cultural.</p>
+                </div>
+                <div class="card" style="padding:28px;text-align:center;">
+                    <div class="stat-num" id="stat2">30+</div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-soft);margin-top:4px;">Canciones y cuentos</div>
+                    <p style="font-size:12px;color:var(--text-soft);margin-top:8px;line-height:1.5;">En español y náhuatl para estimulación auditiva y cognitiva.</p>
+                </div>
+                <div class="card" style="padding:28px;text-align:center;">
+                    <div class="stat-num">2</div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-soft);margin-top:4px;">Idiomas integrados</div>
+                    <p style="font-size:12px;color:var(--text-soft);margin-top:8px;line-height:1.5;">El bilingüismo temprano fortalece capacidades cognitivas superiores.</p>
+                </div>
+                <div class="card" style="padding:28px;text-align:center;">
+                    <div class="stat-num">100%</div>
+                    <div style="font-size:13px;font-weight:700;color:var(--text-soft);margin-top:4px;">Artesanal y segura</div>
+                    <p style="font-size:12px;color:var(--text-soft);margin-top:8px;line-height:1.5;">Sin plásticos duros, diseñada para ser segura y estimulante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Áreas de Desarrollo Cognitivo -->
+    <section id="areas" style="padding:64px 32px;background:rgba(252,228,236,0.25);">
+        <div style="max-width:1100px;margin:0 auto;">
+            <div style="text-align:center;margin-bottom:48px;">
+                <h2 style="font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;color:var(--text);">Áreas cognitivas que estimula</h2>
+                <p style="color:var(--text-soft);font-size:16px;margin-top:10px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;">Cada elemento de Mi Nantli fue pensado para potenciar distintas dimensiones del desarrollo infantil de forma simultánea y natural.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="three-col">
+
+                <!-- Lenguaje -->
+                <div class="cog-card" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);border:1px solid rgba(21,101,192,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">🗣️</div>
+                    <h3 style="font-size:17px;font-weight:800;color:#1565c0;margin-bottom:10px;">Desarrollo del Lenguaje</h3>
+                    <p style="font-size:14px;color:#1a237e;line-height:1.7;margin-bottom:14px;">El sistema de audio interactivo expone a la niña a vocabulario en dos idiomas desde edades tempranas. El náhuatl se incorpora de forma natural mediante canciones y repetición, aprovechando la ventana crítica del lenguaje (0–8 años).</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#1565c0;">
+                            <span>Vocabulario bilingüe</span><span>92%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#1565c0,#42a5f5);--target-w:92%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#1565c0;">
+                            <span>Comprensión auditiva</span><span>88%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#1565c0,#42a5f5);--target-w:88%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Motricidad -->
+                <div class="cog-card" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid rgba(46,125,50,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">🤲</div>
+                    <h3 style="font-size:17px;font-weight:800;color:#2e7d32;margin-bottom:10px;">Motricidad Fina y Gruesa</h3>
+                    <p style="font-size:14px;color:#1b5e20;line-height:1.7;margin-bottom:14px;">Las articulaciones móviles en cabeza y pies invitan a la manipulación activa del juguete. La textura del tejido crochet estimula la percepción táctil, desarrollando la coordinación mano-ojo y la destreza manual en actividades cotidianas de juego.</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#2e7d32;">
+                            <span>Coordinación manual</span><span>85%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#2e7d32,#66bb6a);--target-w:85%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#2e7d32;">
+                            <span>Percepción táctil</span><span>90%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#2e7d32,#66bb6a);--target-w:90%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Emocional -->
+                <div class="cog-card" style="background:linear-gradient(135deg,var(--pink-pale),#f8bbd0);border:1px solid rgba(194,24,91,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">💞</div>
+                    <h3 style="font-size:17px;font-weight:800;color:var(--pink);margin-bottom:10px;">Inteligencia Emocional</h3>
+                    <p style="font-size:14px;color:#880e4f;line-height:1.7;margin-bottom:14px;">El juego simbólico con muñecas desarrolla la empatía, la expresión emocional y la capacidad de identificarse con otros. Al ver reflejada su cultura en Mi Nantli, la niña fortalece su autoestima e identidad cultural desde la primera infancia.</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--pink);">
+                            <span>Empatía y juego simbólico</span><span>95%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,var(--pink),var(--pink-light));--target-w:95%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--pink);">
+                            <span>Identidad y autoestima</span><span>89%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,var(--pink),var(--pink-light));--target-w:89%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Memoria -->
+                <div class="cog-card" style="background:linear-gradient(135deg,#ede7f6,#d1c4e9);border:1px solid rgba(123,31,162,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">🧩</div>
+                    <h3 style="font-size:17px;font-weight:800;color:#7b1fa2;margin-bottom:10px;">Memoria y Aprendizaje</h3>
+                    <p style="font-size:14px;color:#4a148c;line-height:1.7;margin-bottom:14px;">Las canciones y cuentos en loop refuerzan la memoria auditiva y la retención de vocabulario. La repetición de palabras en náhuatl activa la memoria episódica y semántica, creando asociaciones positivas con el aprendizaje desde edad temprana.</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#7b1fa2;">
+                            <span>Retención de vocabulario</span><span>87%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#7b1fa2,#ab47bc);--target-w:87%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#7b1fa2;">
+                            <span>Memoria auditiva</span><span>83%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#7b1fa2,#ab47bc);--target-w:83%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Social -->
+                <div class="cog-card" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border:1px solid rgba(245,124,0,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">👫</div>
+                    <h3 style="font-size:17px;font-weight:800;color:#f57c00;margin-bottom:10px;">Habilidades Sociales</h3>
+                    <p style="font-size:14px;color:#e65100;line-height:1.7;margin-bottom:14px;">El juego con muñecas fomenta la comunicación, la narración de historias y la socialización entre pares. Mi Nantli invita a compartir palabras en náhuatl con familiares, creando puentes intergeneracionales entre abuelos, madres y niñas.</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#f57c00;">
+                            <span>Comunicación y narración</span><span>91%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#f57c00,#ffb74d);--target-w:91%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#f57c00;">
+                            <span>Vínculos intergeneracionales</span><span>94%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#f57c00,#ffb74d);--target-w:94%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Creatividad -->
+                <div class="cog-card" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border:1px solid rgba(0,137,123,0.2);">
+                    <div style="font-size:44px;margin-bottom:14px;">🎨</div>
+                    <h3 style="font-size:17px;font-weight:800;color:#00897b;margin-bottom:10px;">Creatividad e Imaginación</h3>
+                    <p style="font-size:14px;color:#00695c;line-height:1.7;margin-bottom:14px;">El juego libre con Mi Nantli estimula la imaginación y la construcción de narrativas propias. La vestimenta tradicional genera curiosidad sobre la historia y la cultura, fomentando el pensamiento simbólico y la creatividad expresiva en las niñas.</p>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#00897b;">
+                            <span>Pensamiento simbólico</span><span>88%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#00897b,#4db6ac);--target-w:88%;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;">
+                        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#00897b;">
+                            <span>Imaginación narrativa</span><span>86%</span>
+                        </div>
+                        <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#00897b,#4db6ac);--target-w:86%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Línea de desarrollo por edad -->
+    <section id="edades" style="padding:64px 32px;">
+        <div style="max-width:1100px;margin:0 auto;">
+            <div style="text-align:center;margin-bottom:48px;">
+                <h2 style="font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;color:var(--text);">Aprendizaje adaptado por edad</h2>
+                <p style="color:var(--text-soft);font-size:16px;margin-top:10px;max-width:580px;margin-left:auto;margin-right:auto;line-height:1.7;">Mi Nantli acompaña a la niña en cada etapa de su desarrollo, adaptando sus beneficios al nivel cognitivo correspondiente.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0;max-width:900px;margin:0 auto 48px;" id="ageTimeline">
+                <div class="age-step">
+                    <div class="age-circle" style="background:linear-gradient(135deg,#f06292,#e91e8c);">4</div>
+                    <span style="font-size:12px;font-weight:700;color:var(--pink);text-align:center;">años</span>
+                </div>
+                <div class="age-connector" style="background:linear-gradient(90deg,#e91e8c,#c2185b);margin-top:28px;flex:1;height:3px;"></div>
+                <div class="age-step">
+                    <div class="age-circle" style="background:linear-gradient(135deg,#c2185b,#ad1457);">5</div>
+                    <span style="font-size:12px;font-weight:700;color:var(--pink);text-align:center;">años</span>
+                </div>
+                <div class="age-connector" style="background:linear-gradient(90deg,#c2185b,#8e24aa);margin-top:28px;flex:1;height:3px;"></div>
+                <div class="age-step">
+                    <div class="age-circle" style="background:linear-gradient(135deg,#8e24aa,#6a1b9a);">6</div>
+                    <span style="font-size:12px;font-weight:700;color:#8e24aa;text-align:center;">años</span>
+                </div>
+                <div class="age-connector" style="background:linear-gradient(90deg,#8e24aa,#1565c0);margin-top:28px;flex:1;height:3px;"></div>
+                <div class="age-step">
+                    <div class="age-circle" style="background:linear-gradient(135deg,#1565c0,#0d47a1);">7</div>
+                    <span style="font-size:12px;font-weight:700;color:#1565c0;text-align:center;">años</span>
+                </div>
+                <div class="age-connector" style="background:linear-gradient(90deg,#1565c0,#00897b);margin-top:28px;flex:1;height:3px;"></div>
+                <div class="age-step">
+                    <div class="age-circle" style="background:linear-gradient(135deg,#00897b,#00695c);">8</div>
+                    <span style="font-size:12px;font-weight:700;color:#00897b;text-align:center;">años</span>
+                </div>
+            </div>
+            <!-- Age detail cards -->
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;" class="age-cards">
+                <div class="card stitch" style="padding:18px;font-size:13px;">
+                    <div style="font-size:20px;margin-bottom:8px;">🌱</div>
+                    <h4 style="font-weight:800;color:var(--pink);margin-bottom:6px;">4 años</h4>
+                    <p style="color:var(--text-soft);line-height:1.6;">Exploración sensorial. Aprende canciones simples. Imita sonidos y palabras. Desarrolla apego al juguete.</p>
+                </div>
+                <div class="card stitch" style="padding:18px;font-size:13px;">
+                    <div style="font-size:20px;margin-bottom:8px;">🌿</div>
+                    <h4 style="font-weight:800;color:var(--pink);margin-bottom:6px;">5 años</h4>
+                    <p style="color:var(--text-soft);line-height:1.6;">Repite frases en náhuatl. Inventa historias. Reconoce diferencias entre ambos idiomas.</p>
+                </div>
+                <div class="card stitch" style="padding:18px;font-size:13px;">
+                    <div style="font-size:20px;margin-bottom:8px;">🌸</div>
+                    <h4 style="font-weight:800;color:#8e24aa);margin-bottom:6px;">6 años</h4>
+                    <p style="color:var(--text-soft);line-height:1.6;">Amplía vocabulario activo. Pregunta sobre significados culturales. Juego simbólico más elaborado.</p>
+                </div>
+                <div class="card stitch" style="padding:18px;font-size:13px;">
+                    <div style="font-size:20px;margin-bottom:8px;">🌺</div>
+                    <h4 style="font-weight:800;color:#1565c0;margin-bottom:6px;">7 años</h4>
+                    <p style="color:var(--text-soft);line-height:1.6;">Compara idiomas conscientemente. Enseña palabras a otros. Refuerza identidad cultural propia.</p>
+                </div>
+                <div class="card stitch" style="padding:18px;font-size:13px;">
+                    <div style="font-size:20px;margin-bottom:8px;">🌻</div>
+                    <h4 style="font-weight:800;color:#00897b;margin-bottom:6px;">8 años</h4>
+                    <p style="color:var(--text-soft);line-height:1.6;">Comprensión cultural profunda. Valora la artesanía. Transmite orgullosamente el náhuatl.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sistema de audio interactivo -->
+    <section id="audio" style="padding:64px 32px;background:rgba(252,228,236,0.3);">
+        <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;" class="two-col">
+            <div>
+                <div style="display:inline-flex;align-items:center;gap:8px;background:var(--pink-pale);padding:8px 18px;border-radius:9999px;margin-bottom:20px;">
+                    <span class="material-symbols-outlined" style="color:var(--pink);font-size:18px;">headphones</span>
+                    <span style="font-size:12px;font-weight:800;color:var(--pink);">SISTEMA DE AUDIO INTERACTIVO</span>
+                </div>
+                <h2 style="font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;color:var(--text);margin-bottom:16px;">La tecnología al servicio del aprendizaje</h2>
+                <p style="color:var(--text-soft);font-size:16px;line-height:1.75;margin-bottom:20px;">Mi Nantli integra un módulo de audio recargable vía USB dentro del torso de la muñeca. El cableado se distribuye internamente hacia botones interactivos que permiten:</p>
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:white;border-radius:14px;border:1px solid rgba(212,194,194,0.3);">
+                        <span style="font-size:24px;flex-shrink:0;">🎵</span>
+                        <div><h4 style="font-weight:700;margin-bottom:4px;">Reproducir canciones</h4><p style="font-size:13px;color:var(--text-soft);">Más de 30 canciones tradicionales y educativas en español y náhuatl que estimulan la memoria musical.</p></div>
+                    </div>
+                    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:white;border-radius:14px;border:1px solid rgba(212,194,194,0.3);">
+                        <span style="font-size:24px;flex-shrink:0;">📖</span>
+                        <div><h4 style="font-weight:700;margin-bottom:4px;">Contar cuentos</h4><p style="font-size:13px;color:var(--text-soft);">Historias culturales que desarrollan la comprensión narrativa y el amor por la cultura nahua.</p></div>
+                    </div>
+                    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:white;border-radius:14px;border:1px solid rgba(212,194,194,0.3);">
+                        <span style="font-size:24px;flex-shrink:0;">🔊</span>
+                        <div><h4 style="font-weight:700;margin-bottom:4px;">Repetir palabras</h4><p style="font-size:13px;color:var(--text-soft);">Repite palabras pronunciadas por la niña en español y náhuatl, reforzando la producción oral activa.</p></div>
+                    </div>
+                    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:white;border-radius:14px;border:1px solid rgba(212,194,194,0.3);">
+                        <span style="font-size:24px;flex-shrink:0;">🔋</span>
+                        <div><h4 style="font-weight:700;margin-bottom:4px;">Recarga USB</h4><p style="font-size:13px;color:var(--text-soft);">Sistema recargable fácil de usar, diseñado para horas de aprendizaje sin interrupciones.</p></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Visual tech mockup -->
+            <div style="background:white;border-radius:2rem;padding:32px;box-shadow:0 8px 40px rgba(194,24,91,0.1);border:1px solid rgba(212,194,194,0.3);">
+                <h4 style="font-weight:800;font-size:16px;text-align:center;margin-bottom:20px;">Proceso de integración tecnológica</h4>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#e3f2fd;border-radius:12px;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:#1565c0;color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">1</div>
+                        <div><p style="font-size:13px;font-weight:700;color:#1565c0;">Recepción del pedido digital</p><p style="font-size:11px;color:#1a237e;">Vía sitio web, Facebook, Instagram o TikTok</p></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--pink-pale);border-radius:12px;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:var(--pink);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">2</div>
+                        <div><p style="font-size:13px;font-weight:700;color:var(--pink);">Tejido artesanal de la estructura</p><p style="font-size:11px;color:#880e4f;">Espacio reservado para el módulo de audio</p></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#e8f5e9;border-radius:12px;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">3</div>
+                        <div><p style="font-size:13px;font-weight:700;color:#2e7d32;">Integración del sistema tecnológico</p><p style="font-size:11px;color:#1b5e20;">Módulo en torso + cableado a botones interactivos</p></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#fff3e0;border-radius:12px;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:#f57c00;color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">4</div>
+                        <div><p style="font-size:13px;font-weight:700;color:#f57c00;">Pruebas de funcionamiento</p><p style="font-size:11px;color:#e65100;">Verificación de audio, grabación y botones</p></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:#ede7f6;border-radius:12px;">
+                        <div style="width:32px;height:32px;border-radius:50%;background:#7b1fa2;color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">5</div>
+                        <div><p style="font-size:13px;font-weight:700;color:#7b1fa2;">Control de calidad final</p><p style="font-size:11px;color:#4a148c;">Tejido + tecnología + audio verificados</p></div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:linear-gradient(135deg,var(--pink-pale),#e8f5e9);border-radius:12px;border:2px dashed var(--pink);">
+                        <div style="font-size:24px;">📦</div>
+                        <div><p style="font-size:13px;font-weight:700;color:var(--text);">Empaque + Distribución</p><p style="font-size:11px;color:var(--text-soft);">Instructivo incluido · Envío a 8 estados</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Por qué el juego educativo importa -->
+    <section style="padding:64px 32px;">
+        <div style="max-width:1100px;margin:0 auto;">
+            <div style="text-align:center;margin-bottom:48px;">
+                <h2 style="font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;color:var(--text);">¿Por qué una muñeca es el mejor maestro?</h2>
+                <p style="color:var(--text-soft);font-size:16px;margin-top:10px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7;">La investigación en psicología infantil confirma que el juego simbólico con muñecas es una de las formas más poderosas de aprendizaje en la primera infancia.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;" class="two-col">
+                <div class="card" style="padding:32px;">
+                    <div style="font-size:36px;margin-bottom:16px;">🔬</div>
+                    <h3 style="font-size:18px;font-weight:800;margin-bottom:12px;color:var(--text);">Base científica</h3>
+                    <p style="color:var(--text-soft);line-height:1.75;margin-bottom:16px;">Estudios del INEGI (2020) sobre infancia en México señalan que la etapa de 4 a 8 años es crítica para la formación de identidad, adquisición del lenguaje y desarrollo de habilidades sociales. El juego libre con objetos significativos acelera estos procesos.</p>
+                    <blockquote class="quote-block">"El juego es el trabajo de la infancia. A través de él, la niña construye su comprensión del mundo."</blockquote>
+                </div>
+                <div class="card" style="padding:32px;">
+                    <div style="font-size:36px;margin-bottom:16px;">🌍</div>
+                    <h3 style="font-size:18px;font-weight:800;margin-bottom:12px;color:var(--text);">Enfoque cultural-educativo</h3>
+                    <p style="color:var(--text-soft);line-height:1.75;margin-bottom:16px;">Mi Nantli nació como proyecto de investigación aplicada en el Instituto Tecnológico Superior de Teziutlán. Su diseño integra un enfoque mixto: combina la artesanía tradicional con tecnología educativa, cerrrando la brecha entre teoría y práctica cultural.</p>
+                    <blockquote class="quote-block">"Se busca diseñar e innovar una muñeca artesanal que combine elementos tradicionales y tecnológicos para preservar la cultura." — Proyecto My Loly</blockquote>
+                </div>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div style="background:white;border-radius:2rem;overflow:hidden;box-shadow:0 4px 24px rgba(194,24,91,0.08);border:1px solid rgba(212,194,194,0.3);">
+                <div style="padding:24px 24px 0;"><h3 style="font-size:18px;font-weight:800;color:var(--text);">Preguntas frecuentes sobre educación</h3></div>
+                <div id="accordion" style="padding:12px;">
+                    <div style="border-bottom:1px solid rgba(212,194,194,0.4);">
+                        <div class="acc-header" onclick="toggleAcc(0)">
+                            <span style="font-weight:700;font-size:15px;">¿A partir de qué edad puede usarse Mi Nantli?</span>
+                            <span class="acc-arrow" id="arr0">▼</span>
+                        </div>
+                        <div class="acc-body" id="acc0">Mi Nantli está diseñada para niñas de 4 a 8 años. Sin embargo, por la presencia de componentes electrónicos internos, no se recomienda para menores de 3 años. Se recomienda supervisión adulta para niñas de 3 a 4 años. A partir de los 4 años, el juego autónomo es seguro y altamente estimulante.</div>
+                    </div>
+                    <div style="border-bottom:1px solid rgba(212,194,194,0.4);">
+                        <div class="acc-header" onclick="toggleAcc(1)">
+                            <span style="font-weight:700;font-size:15px;">¿Cómo apoya el aprendizaje del náhuatl?</span>
+                            <span class="acc-arrow" id="arr1">▼</span>
+                        </div>
+                        <div class="acc-body" id="acc1">El sistema de audio reproduce palabras, canciones y cuentos en náhuatl de forma natural y repetitiva. La repetición en contextos lúdicos es el método más efectivo para la adquisición de vocabulario en una segunda lengua. Las niñas aprenden sin esfuerzo consciente, integrando el náhuatl como parte de su vida cotidiana de juego.</div>
+                    </div>
+                    <div style="border-bottom:1px solid rgba(212,194,194,0.4);">
+                        <div class="acc-header" onclick="toggleAcc(2)">
+                            <span style="font-weight:700;font-size:15px;">¿Es Mi Nantli solo para niñas de origen nahua?</span>
+                            <span class="acc-arrow" id="arr2">▼</span>
+                        </div>
+                        <div class="acc-body" id="acc2">No. Mi Nantli es para todas las niñas. Para las de raíces nahuas, representa un espejo de su identidad y herencia. Para las demás, es una ventana fascinante a una de las culturas más ricas de México. El náhuatl es el idioma indígena con mayor número de hablantes en México, y conocerlo enriquece la comprensión cultural de cualquier niña mexicana.</div>
+                    </div>
+                    <div>
+                        <div class="acc-header" onclick="toggleAcc(3)">
+                            <span style="font-weight:700;font-size:15px;">¿Cuál es el valor diferencial frente a otras muñecas educativas?</span>
+                            <span class="acc-arrow" id="arr3">▼</span>
+                        </div>
+                        <div class="acc-body" id="acc3">A diferencia de las muñecas de plástico convencionales, Mi Nantli combina tres dimensiones únicas: (1) Artesanía auténtica tejida a mano que desarrolla el aprecio por el trabajo manual; (2) Contenido bilingüe español-náhuatl, un idioma originario en riesgo; y (3) Vestimenta inspirada en trajes tradicionales mexicanos que genera orgullo cultural e identidad desde la infancia.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:64px 32px;text-align:center;background:linear-gradient(135deg,rgba(252,228,236,0.7),rgba(232,245,233,0.5));">
+        <div style="max-width:640px;margin:0 auto;">
+            <div style="font-size:56px;margin-bottom:16px;">🧠</div>
+            <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;color:var(--text);margin-bottom:16px;">Invierte en el desarrollo de tu hija</h2>
+            <p style="color:var(--text-soft);font-size:16px;line-height:1.75;margin-bottom:36px;">Mi Nantli no es solo un juguete — es una herramienta de desarrollo cognitivo, identidad cultural y amor por aprender.</p>
+            <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+                <button class="btn-primary" onclick="location.href='compra.html'" style="padding:18px 44px;font-size:16px;">Adquirir Mi Nantli ❤️</button>
+                <button onclick="location.href='impacto.html'" style="padding:18px 44px;font-size:16px;border-radius:9999px;border:2px solid var(--pink);background:white;color:var(--pink);font-weight:700;cursor:pointer;transition:background 0.3s;" onmouseover="this.style.background='var(--pink-pale)'" onmouseout="this.style.background='white'">Ver impacto cultural →</button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer style="padding:40px 32px;border-top:1px solid var(--border);background:rgba(255,240,240,0.8);text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;">
+    <a href="index.html" class="logo-btn">Mi♥Nantli</a>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;">
+        <a href="index.html" style="color:var(--text-soft);text-decoration:none;font-size:14px;transition:color 0.3s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--text-soft)'">Inicio</a>
+        <a href="muneca.html" style="color:var(--text-soft);text-decoration:none;font-size:14px;transition:color 0.3s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--text-soft)'">La Muñeca</a>
+        <a href="educacion.html" style="color:var(--pink);font-weight:700;text-decoration:none;font-size:14px;">Educación</a>
+        <a href="impacto.html" style="color:var(--text-soft);text-decoration:none;font-size:14px;transition:color 0.3s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--text-soft)'">Impacto Cultural</a>
+        <a href="compra.html" style="color:var(--text-soft);text-decoration:none;font-size:14px;transition:color 0.3s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='var(--text-soft)'">Adquirir</a>
+    </div>
+    <p style="color:var(--text-soft);font-size:13px;">© 2024 Mi Nantli · Artesanía con Corazón · Hecho en México 🇲🇽</p>
+</footer>
+
+<script>
+// Mobile menu
+document.getElementById('menuToggle').addEventListener('click',function(){
+    const m=document.getElementById('mobileMenu');
+    m.style.display=m.style.display==='flex'?'none':'flex';
+});
+
+// Accordion
+function toggleAcc(i){
+    const body=document.getElementById('acc'+i);
+    const arr=document.getElementById('arr'+i);
+    const isOpen=body.classList.contains('open');
+    document.querySelectorAll('.acc-body').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('.acc-arrow').forEach(a=>a.classList.remove('open'));
+    if(!isOpen){body.classList.add('open');arr.classList.add('open');}
+}
+
+// Progress bars on scroll
+const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting){
+            e.target.querySelectorAll('.prog-fill').forEach(bar=>{
+                const w=getComputedStyle(bar).getPropertyValue('--target-w');
+                bar.style.width=w;
+            });
+            io.unobserve(e.target);
+        }
+    });
+},{threshold:0.3});
+document.querySelectorAll('.cog-card').forEach(c=>io.observe(c));
+
+// Responsive grids
+function adj(){
+    const w=window.innerWidth;
+    document.querySelectorAll('.two-col').forEach(g=>g.style.gridTemplateColumns=w<768?'1fr':'1fr 1fr');
+    document.querySelectorAll('.three-col').forEach(g=>g.style.gridTemplateColumns=w<600?'1fr':w<900?'1fr 1fr':'repeat(3,1fr)');
+    document.querySelectorAll('.age-cards').forEach(g=>g.style.gridTemplateColumns=w<500?'1fr 1fr':w<768?'repeat(3,1fr)':'repeat(5,1fr)');
+}
+adj();
+window.addEventListener('resize',adj);
+
+// Fade-in on scroll
+const fadeIO=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:0.1});
+document.querySelectorAll('.card,.cog-card').forEach(el=>{
+    el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+    el.style.opacity='0';el.style.transform='translateY(22px)';
+    fadeIO.observe(el);
+});
+</script>
+</body>
+</html>
